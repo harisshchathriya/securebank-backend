@@ -42,7 +42,7 @@ def deposit(account_id: int, amount: float) -> float:
     """Deposits money. Rejects <= 0. Uses dict O(1) lookup."""
     # TRAP PREVENTED: Negative or zero deposits rejected.
     if amount <= 0:
-        raise InvalidAmountError("Deposit amount must be positive.")
+        raise InvalidAmountError("Deposit amount must be Greater than zero.")
     
     # TRAP PREVENTED: Checking membership BEFORE accessing to avoid KeyError.
     account = accounts.get(account_id)
@@ -55,8 +55,10 @@ def deposit(account_id: int, amount: float) -> float:
 def withdraw(account_id: int, amount: float) -> float:
     """Withdraws money. Rejects <= 0 and over-withdrawal."""
     # TRAP PREVENTED: Negative or zero withdrawals rejected.
-    if amount <= 0:
-        raise InvalidAmountError("Withdrawal amount must be positive.")
+    if amount <0:
+        raise InvalidAmountError("Withdrawal amount must be Greater than zero.")
+    if amount == 0:
+        raise InvalidAmountError("Withdrawal amount cannot be zero.")
     
     # TRAP PREVENTED: Membership check to avoid KeyError crash.
     account = accounts.get(account_id)
@@ -163,7 +165,7 @@ def main():
             try:
                 acc_id = int(input("Enter Account ID: ").strip())
                 close_account(acc_id)
-                print("\nAccount Closed Successfully")
+                print("\nAccount Closed Successfully.")
             except ValueError:
                 print("Invalid input. Please enter numeric values.")
             except AccountNotFoundError as e:
@@ -171,7 +173,7 @@ def main():
 
         # --- 6. EXIT ---
         elif choice == '6':
-            print("\nExiting SecureBank. Goodbye!")
+            print("\nExiting SecureBank. Thank you for using our services!")
             break
 
         else:
